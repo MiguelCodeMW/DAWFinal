@@ -3,7 +3,7 @@ FROM node:alpine AS build
 RUN apk add --no-cache git
 RUN git clone https://github.com/MiguelCodeMW/AlumnosReact.git
 #RUN npm install -g vite
-WORKDIR /ReactViteSkel
+WORKDIR /AlumnosReact
 #COPY vite-project/package*.json ./
 RUN npm install
 #COPY vite-project .
