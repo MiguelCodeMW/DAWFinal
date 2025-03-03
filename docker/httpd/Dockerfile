@@ -28,23 +28,19 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN cp $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/conf.d/php.ini
 
 
+
 RUN sed -i 's/;extension=zip/extension=zip/g' $PHP_INI_DIR/conf.d/php.ini
 RUN sed -i 's/;extension=pdo_mysql/extension=pdo_mysql/g' $PHP_INI_DIR/conf.d/php.ini
-RUN sed -i 's#DocumentRoot /var/www/html#DocumentRoot /var/www/html/ApiAlumnos/public#g' /etc/apache2/sites-available/000-default.conf
+RUN sed -i 's#DocumentRoot /var/www/html#DocumentRoot /var/www/html/public#g' /etc/apache2/sites-available/000-default.conf
 
+COPY --chown=www-data:www-data apiAlumnos /var/www/html/
+WORKDIR /var/www/html
+
+#RUN chown -R 1000:1000 /var/www/html
 
 RUN a2enmod rewrite
 
-
-
 USER www-data
-RUN git clone https://github.com/MiguelCodeMW/ApiAlumnos.git
-WORKDIR /var/www/html/ApiAlumnos
-
-#El ficchero .env debería copiarse desde fuera del contenedor
-RUN cp .env.example .env
 RUN composer install
-RUN touch database/database.sqlite
+
 RUN php artisan migrate
-
-
