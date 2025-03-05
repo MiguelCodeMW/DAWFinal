@@ -43,4 +43,4 @@ RUN a2enmod rewrite
 USER www-data
 RUN composer install
 
-RUN php artisan migrate
+RUN php artisan migrate --force
