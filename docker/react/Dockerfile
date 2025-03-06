@@ -6,6 +6,9 @@ RUN git clone https://github.com/MiguelCodeMW/AlumnosReact.git
 WORKDIR /AlumnosReact
 #COPY vite-project/package*.json ./
 RUN npm install
+
+RUN cp .env.example .env
+
 #COPY vite-project .
 RUN npm run build
  
