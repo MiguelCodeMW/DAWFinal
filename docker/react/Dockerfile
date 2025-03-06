@@ -11,7 +11,7 @@ RUN cp .env.example .env
 
 #COPY vite-project .
 RUN npm run build
- 
+
 # Production Stage
 FROM nginx:stable-alpine AS production
 COPY --from=build /AlumnosReact/dist /usr/share/nginx/html
