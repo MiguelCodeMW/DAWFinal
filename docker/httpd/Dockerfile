@@ -30,7 +30,7 @@ RUN cp $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/conf.d/php.ini
 
 RUN sed -i 's/;extension=zip/extension=zip/g' $PHP_INI_DIR/conf.d/php.ini
 RUN sed -i 's/;extension=pdo_mysql/extension=pdo_mysql/g' $PHP_INI_DIR/conf.d/php.ini
-RUN sed -i 's#DocumentRoot /var/www/html#DocumentRoot /var/www/html/LaravelSkel/public#g' /etc/apache2/sites-available/000-default.conf
+RUN sed -i 's#DocumentRoot /var/www/html#DocumentRoot /var/www/html/apiAlumnos/public#g' /etc/apache2/sites-available/000-default.conf
 
 
 RUN a2enmod rewrite
