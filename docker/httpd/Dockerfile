@@ -19,6 +19,15 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN docker-php-ext-install pdo_mysql zip mbstring exif pcntl bcmath gd
 
 
+# Instalar Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+#Establecer el fichero php-ini a producción o desarrollo
+#RUN cp $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/conf.d/php.ini
+
+RUN cp $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/conf.d/php.ini
+
+
 RUN sed -i 's/;extension=zip/extension=zip/g' $PHP_INI_DIR/conf.d/php.ini
 RUN sed -i 's/;extension=pdo_mysql/extension=pdo_mysql/g' $PHP_INI_DIR/conf.d/php.ini
 RUN sed -i 's#DocumentRoot /var/www/html#DocumentRoot /var/www/html/apiAlumnos/apiAlumnos/public#g' /etc/apache2/sites-available/000-default.conf
@@ -37,5 +46,3 @@ RUN cp .env.example .env
 RUN composer install
 RUN touch database/database.sqlite
 RUN php artisan migrate --force
-
-
